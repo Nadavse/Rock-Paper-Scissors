@@ -1,3 +1,7 @@
+let playerScore = 0;
+let computerScore = 0;
+
+//returns one of three options (Scissors,Paper,Rock) randomly
 function getComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3);
     let choice;
@@ -12,16 +16,17 @@ function getComputerChoice() {
             choice = 'Rock';
             break;
     }
-//    console.log(choice);
     return choice;
 };
 
+//playing one round of game
 function playRound(playerSelection,ComputerSelection) {
     const player = playerSelection.toLowerCase();
     const computer = ComputerSelection.toLowerCase();
+    console.log(player + ' ' + computer);
     let winner;
     if (player === computer) {
-        winner = 'tie';
+        return playRound(player,getComputerChoice());
     } else if (player === 'scissors' && computer === 'paper') {
         winner = 'player';
     } else if (player === 'scissors' && computer === 'rock') {
@@ -36,18 +41,33 @@ function playRound(playerSelection,ComputerSelection) {
         winner = 'computer';
     }
     switch (winner) {
-        case tie:
-            return `it's a tie! you both chose ${player}`;
-            break;
-        case player:
+        case `player`:
+            playerScore++;
             return `You Win! ${player} beats ${computer}`;
             break;
-        case computer:
+        case `computer`:
+            computerScore++;
             return `You Lose! ${computer} beats ${player}`;
             break;
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+//run a game for best of 5
+function game() {
+    let playerSelection;
+    let computerSelection;
+    for (let i = 0; i < 5; i++) {
+        console.log(`It's time to choose`);
+        playerSelection = prompt();
+        computerSelection = getComputerChoice();
+        console.log(playRound(playerSelection, computerSelection));
+        console.log(playerScore + ' ' + computerScore);
+    }
+    if (playerScore > computerScore) {
+        console.log(`YOU WIN THE GAME`);
+    } else {
+        console.log(`YOU LOSE THE GAME`);
+    }
+}
+
+game();
