@@ -23,7 +23,7 @@ function getComputerChoice() {
 function playRound(playerSelection,ComputerSelection) {
     const player = playerSelection.toLowerCase();
     const computer = ComputerSelection.toLowerCase();
-    console.log(player + ' ' + computer);
+
     let winner;
     if (player === computer) {
         return playRound(player,getComputerChoice());
@@ -43,17 +43,37 @@ function playRound(playerSelection,ComputerSelection) {
     switch (winner) {
         case `player`:
             playerScore++;
-            return `You Win! ${player} beats ${computer}`;
             break;
         case `computer`:
             computerScore++;
-            return `You Lose! ${computer} beats ${player}`;
             break;
     }
+
+    const para = document.createElement("p");
+    const node = document.createTextNode(player + ' ' + computer);
+    const score = document.createTextNode(playerScore + ' ' + computerScore);
+    let winnerGame;
+
+    para.appendChild(node);
+    para.appendChild(document.createElement("br"));
+    para.appendChild(score);
+
+    if ( (playerScore + computerScore) === 5){
+        if (playerScore > computerScore) {
+            winnerGame = document.createTextNode(`YOU WIN THE GAME`);
+        } else {
+            winnerGame = document.createTextNode(`YOU LOSE THE GAME`);
+        }
+        para.appendChild(document.createElement("br"));
+        para.appendChild(document.createElement("br"));
+        para.appendChild(winnerGame);
+    }
+    
+    document.getElementById("results").appendChild(para);
 }
 
 //run a game for best of 5
-function game() {
+/*function game() {
     let playerSelection;
     let computerSelection;
     for (let i = 0; i < 5; i++) {
@@ -71,3 +91,8 @@ function game() {
 }
 
 game();
+*/
+
+document.getElementById("Scissors").addEventListener("click",function(){ playRound("Scissors",getComputerChoice()); });
+document.getElementById("Paper").addEventListener("click",function(){ playRound("Paper",getComputerChoice()); });
+document.getElementById("Rock").addEventListener("click",function(){ playRound("Rock",getComputerChoice()); });
