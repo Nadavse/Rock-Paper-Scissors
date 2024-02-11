@@ -72,26 +72,6 @@ function playRound(playerSelection,ComputerSelection) {
     document.getElementById("results").appendChild(para);
 }
 
-//run a game for best of 5
-/*function game() {
-    let playerSelection;
-    let computerSelection;
-    for (let i = 0; i < 5; i++) {
-        console.log(`It's time to choose`);
-        playerSelection = prompt();
-        computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-        console.log(playerScore + ' ' + computerScore);
-    }
-    if (playerScore > computerScore) {
-        console.log(`YOU WIN THE GAME`);
-    } else {
-        console.log(`YOU LOSE THE GAME`);
-    }
-}
-
-game();
-*/
 
 document.getElementById("Scissors").addEventListener("click",function(){ playRound("Scissors",getComputerChoice()); });
 document.getElementById("Paper").addEventListener("click",function(){ playRound("Paper",getComputerChoice()); });
